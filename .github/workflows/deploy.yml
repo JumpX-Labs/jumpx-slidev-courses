@@ -36,13 +36,17 @@ jobs:
       - name: Collect all dist outputs
         run: |
           mkdir -p _site
-          for deck_dist in courses/*/*/dist/slides; do
-            course=$(echo $deck_dist | cut -d'/' -f2)
-            lesson=$(echo $deck_dist | cut -d'/' -f3)
+          for slides in courses/*/*/slides.md; do
+            course=$(echo $slides | cut -d'/' -f2)
+            lesson=$(echo $slides | cut -d'/' -f3)
+            src="courses/$course/$lesson/dist"
             target="_site/courses/$course/$lesson"
+            echo "Collecting $src -> $target"
             mkdir -p "$target"
-            cp -r "$deck_dist/." "$target/"
+            cp -r "$src/." "$target/"
           done
+          echo "=== _site structure ==="
+          find _site -maxdepth 4 -type d
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
