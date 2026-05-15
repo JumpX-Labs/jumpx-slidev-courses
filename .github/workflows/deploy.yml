@@ -23,8 +23,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build all Slidev decks
-        run: npm run build
+      - name: Build all Slidev decks (with correct --base path)
+        run: |
+          for slides in courses/*/*/slides.md; do
+            course=$(echo $slides | cut -d'/' -f2)
+            lesson=$(echo $slides | cut -d'/' -f3)
+            base="/courses/$course/$lesson/"
+            echo "Building $slides with base=$base"
+            npx slidev build "$slides" --base "$base"
+          done
 
       - name: Collect all dist outputs
         run: |
