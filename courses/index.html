@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课程目录 - JumpX AI 实践营</title>
+  <meta name="description" content="JumpX AI 实践营课件平台，提供系统化的 AI 通识与实战课件。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #FAF9F6;
+      --text-main: #1F1D1B;
+      --text-muted: #5C5852;
+      --text-light: #9A9591;
+      --primary: #B85A2A;
+      --primary-hover: #9A4E23;
+      --border-color: #E5E0D6;
+      --card-bg: #FFFFFF;
+      --glass-bg: rgba(250, 249, 246, 0.8);
+      --font-sans: 'Outfit', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-col: column;
+      flex-direction: column;
+    }
+
+    /* Background Grid Pattern */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(229, 224, 214, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(229, 224, 214, 0.2) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), #D67A43);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 10px rgba(184, 90, 42, 0.2);
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-tag {
+      font-size: 0.75rem;
+      background: var(--border-color);
+      color: var(--text-muted);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 4rem 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: rgba(184, 90, 42, 0.08);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text-main) 30%, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+
+    /* Grid Layout */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+
+    /* Card Design */
+    .course-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1.5px;
+      background: linear-gradient(135deg, transparent 50%, var(--border-color) 100%);
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      transition: background 0.4s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(31, 29, 27, 0.06);
+      border-color: rgba(184, 90, 42, 0.3);
+    }
+
+    .course-card:hover::before {
+      background: linear-gradient(135deg, var(--primary) 0%, transparent 100%);
+    }
+
+    .card-banner {
+      height: 200px;
+      background: linear-gradient(135deg, #1F1D1B 0%, #3D3934 100%);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Abstract Visuals inside banner */
+    .card-banner::after {
+      content: '';
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(184, 90, 42, 0.2) 0%, transparent 70%);
+      bottom: -100px;
+      right: -80px;
+      pointer-events: none;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.5rem;
+      z-index: 1;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tag-hot {
+      background-color: #E26A36;
+      color: white;
+    }
+
+    .tag-level {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #FAF9F6;
+      backdrop-filter: blur(4px);
+    }
+
+    .banner-title {
+      color: #FAF9F6;
+      font-size: 1.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      z-index: 1;
+      margin-top: auto;
+    }
+
+    .card-body {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .course-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.5rem;
+    }
+
+    .lesson-count {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .lesson-count-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--primary);
+      border-radius: 50%;
+    }
+
+    .btn-enter {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.2s ease;
+    }
+
+    .course-card:hover .btn-enter {
+      transform: translateX(4px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 2rem;
+      text-align: center;
+      background-color: rgba(250, 249, 246, 0.5);
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      main {
+        padding: 3rem 1.5rem;
+      }
+      .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <header>
+    <div class="header-container">
+      <a href="/courses" class="logo-area" id="header-logo-link">
+        <div class="logo-icon">J</div>
+        <span class="logo-text">JumpX AI</span>
+        <span class="logo-tag">课件平台</span>
+      </a>
+      <nav class="nav-links">
+        <a href="https://jumpxai.com" target="_blank" rel="noopener noreferrer">主站官网 →</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-tag">Learning Portal</div>
+      <h1>掌握人机协同时代的数字资产</h1>
+      <p>精选前沿 AI 通识与深度实战课件，帮助你快速完成从概念理解到生产力落地的跨越。</p>
+    </section>
+
+    <section class="courses-grid">
+      <!-- Course Card: AI Camp -->
+      <a href="/courses/ai-camp" class="course-card" id="course-card-ai-camp">
+        <div class="card-banner">
+          <div class="card-tags">
+            <span class="tag tag-hot">🔥 热推</span>
+            <span class="tag tag-level">入门到进阶</span>
+          </div>
+          <h2 class="banner-title">AI 通识实践营</h2>
+        </div>
+        <div class="card-body">
+          <p class="course-desc">从基础大模型认知与协同心智建立，到系统的上下文工程（Context Engineering）动作，并最终沉淀为可复用的 PPT 创作等数字资产。</p>
+          <div class="card-footer">
+            <div class="lesson-count">
+              <span class="lesson-count-dot"></span>
+              <span>2 个课时已发布</span>
+            </div>
+            <div class="btn-enter">
+              <span>开始学习</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 JumpX AI. 保留所有权利。</p>
+  </footer>
+</body>
+</html>

@@ -4,8 +4,8 @@
 # 配置参数
 BUCKET_NAME="jumpxai-courses"
 COURSE_SLUG="ai-camp"
-LESSON_SLUG="week-01-intro"
-LOCAL_DIR="draft-assets/week-01"
+LESSON_SLUG=${1:-"week-01-intro"}
+LOCAL_DIR=${2:-"draft-assets/week-01"}
 
 echo "开始上传图片到 R2 存储桶: $BUCKET_NAME"
 echo "目标路径: courses/$COURSE_SLUG/$LESSON_SLUG/"

@@ -36,15 +36,37 @@ jobs:
       - name: Collect all dist outputs
         run: |
           mkdir -p _site
+          
+          # Copy root redirect
+          cp index.html _site/index.html
+          
+          # Copy courses list portal
+          mkdir -p _site/courses
+          cp courses/index.html _site/courses/index.html
+          
+          # Copy course-specific indexes (e.g., courses/ai-camp/index.html)
+          for course_dir in courses/*; do
+            if [ -d "$course_dir" ]; then
+              course=$(basename "$course_dir")
+              if [ -f "$course_dir/index.html" ]; then
+                mkdir -p "_site/courses/$course"
+                cp "$course_dir/index.html" "_site/courses/$course/index.html"
+                echo "Collected course index for $course"
+              fi
+            fi
+          done
+          
+          # Copy all Slidev builds
           for slides in courses/*/*/slides.md; do
             course=$(echo $slides | cut -d'/' -f2)
             lesson=$(echo $slides | cut -d'/' -f3)
             src="courses/$course/$lesson/dist"
             target="_site/courses/$course/$lesson"
-            echo "Collecting $src -> $target"
+            echo "Collecting Slidev deck: $src -> $target"
             mkdir -p "$target"
             cp -r "$src/." "$target/"
           done
+          
           echo "=== _site structure ==="
           find _site -maxdepth 4 -type d
 

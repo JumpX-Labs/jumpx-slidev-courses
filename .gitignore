@@ -4,3 +4,4 @@ courses/*/dist/
 courses/*/*/dist/
 draft-assets/
 cors.json
+_site/

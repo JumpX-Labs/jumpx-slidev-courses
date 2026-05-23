@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 通识实践营 - 课程目录</title>
+  <meta name="description" content="JumpX AI 通识实践营，系统学习 AI 大模型常识、上下文工程与 Prompt 资产化实战。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #FAF9F6;
+      --text-main: #1F1D1B;
+      --text-muted: #5C5852;
+      --text-light: #9A9591;
+      --primary: #B85A2A;
+      --primary-hover: #9A4E23;
+      --border-color: #E5E0D6;
+      --card-bg: #FFFFFF;
+      --glass-bg: rgba(250, 249, 246, 0.8);
+      --font-sans: 'Outfit', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(229, 224, 214, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(229, 224, 214, 0.2) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .header-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: rgba(184, 90, 42, 0.05);
+      border: 1px solid rgba(184, 90, 42, 0.15);
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-back:hover {
+      background: rgba(184, 90, 42, 0.1);
+      transform: translateX(-2px);
+    }
+
+    .header-logo {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.5px;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* Course Detail Hero */
+    .course-hero {
+      margin-bottom: 4rem;
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .course-hero-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .course-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #FAF9F6;
+      background-color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .course-stats {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .course-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .course-hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      line-height: 1.6;
+    }
+
+    /* Roadmap Timeline */
+    .roadmap {
+      position: relative;
+      padding-left: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    /* Vertical Timeline Line */
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 7.5px;
+      top: 10px;
+      bottom: 10px;
+      width: 3px;
+      background: var(--border-color);
+      border-radius: 2px;
+    }
+
+    /* Lesson Card Item */
+    .lesson-item {
+      position: relative;
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+
+    .lesson-item:nth-child(1) { animation-delay: 0.1s; }
+    .lesson-item:nth-child(2) { animation-delay: 0.2s; }
+
+    /* Timeline Indicator Node */
+    .lesson-node {
+      position: absolute;
+      left: -2rem;
+      top: 24px;
+      transform: translateX(-6.5px);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: var(--bg-color);
+      border: 3.5px solid var(--border-color);
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+
+    .lesson-card:hover + .lesson-node,
+    .lesson-card-wrapper:hover .lesson-node {
+      border-color: var(--primary);
+      background-color: var(--primary);
+      box-shadow: 0 0 0 6px rgba(184, 90, 42, 0.15);
+    }
+
+    /* Lesson Card Content */
+    .lesson-card {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 30px rgba(31, 29, 27, 0.05);
+      border-color: rgba(184, 90, 42, 0.25);
+    }
+
+    .lesson-cover {
+      position: relative;
+      height: 100%;
+      min-height: 160px;
+      background-color: #1F1D1B;
+      overflow: hidden;
+    }
+
+    .lesson-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lesson-card:hover .lesson-cover img {
+      transform: scale(1.05);
+    }
+
+    .lesson-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+    }
+
+    .lesson-info {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .lesson-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(184, 90, 42, 0.08);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .lesson-duration {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .lesson-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+      transition: color 0.2s ease;
+    }
+
+    .lesson-card:hover .lesson-title {
+      color: var(--primary);
+    }
+
+    .lesson-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-study {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.2s ease;
+    }
+
+    .lesson-card:hover .btn-study {
+      transform: translateX(4px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 2rem;
+      text-align: center;
+      background-color: rgba(250, 249, 246, 0.5);
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      main {
+        padding: 2rem 1.25rem;
+      }
+      .course-hero h1 {
+        font-size: 2.2rem;
+      }
+      .roadmap {
+        padding-left: 1.5rem;
+        gap: 2rem;
+      }
+      .roadmap::before {
+        left: 5px;
+      }
+      .lesson-node {
+        left: -1.5rem;
+        transform: translateX(-5px);
+        width: 13px;
+        height: 13px;
+        border-width: 2.5px;
+      }
+      .lesson-card {
+        grid-template-columns: 1fr;
+      }
+      .lesson-cover {
+        height: 150px;
+        min-height: auto;
+      }
+      .lesson-info {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <header>
+    <div class="header-container">
+      <a href="/courses" class="btn-back" id="btn-back-to-portal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>返回目录</span>
+      </a>
+      <a href="/courses" class="header-logo" id="header-logo-link">
+        <span>JumpX AI Camp</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="course-hero">
+      <div class="course-hero-header">
+        <span class="course-tag">AI 通识实践营</span>
+        <span class="course-stats">共 2 课时 &middot; 约 105 分钟</span>
+      </div>
+      <h1>重塑认知与实战心智</h1>
+      <p>打破对大模型的盲目崇拜与使用误区。本课程涵盖基础 AI 常识的重构，到中阶的上下文管理动作（Context Engineering），帮助大家打通认知与实战闭环，沉淀出一套能长期复用的 PPT 创作数字资产。</p>
+    </section>
+
+    <section class="roadmap">
+      <!-- Week 1 -->
+      <div class="lesson-item">
+        <div class="lesson-node"></div>
+        <a href="/courses/ai-camp/week-01-intro/" class="lesson-card" id="lesson-card-week-01">
+          <div class="lesson-cover">
+            <img src="https://r2.jumpxai.com/courses/ai-camp/week-01-intro/1-0.png?v=1" alt="Week 01 Cover">
+          </div>
+          <div class="lesson-info">
+            <div>
+              <div class="lesson-header">
+                <span class="lesson-badge">第 1 讲 · 基础篇</span>
+                <span class="lesson-duration">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>45 mins</span>
+                </span>
+              </div>
+              <h2 class="lesson-title">Week 01 - AI 时代的生存指南</h2>
+              <p class="lesson-desc">人人可学的 AI 通识第一课。打破对 AI 的技术神秘感，理清大模型底层运行的黑盒逻辑，建立全新的人机协同思维模式与认知常识。</p>
+            </div>
+            <div class="btn-study">
+              <span>阅读课件</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="lesson-item">
+        <div class="lesson-node"></div>
+        <a href="/courses/ai-camp/week-02-prompt/" class="lesson-card" id="lesson-card-week-02">
+          <div class="lesson-cover">
+            <img src="https://r2.jumpxai.com/courses/ai-camp/week-02-prompt/2-0.png" alt="Week 02 Cover">
+          </div>
+          <div class="lesson-info">
+            <div>
+              <div class="lesson-header">
+                <span class="lesson-badge">第 2 讲 · 实战篇</span>
+                <span class="lesson-duration">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>60 mins</span>
+                </span>
+              </div>
+              <h2 class="lesson-title">Week 02 - 上下文工程与 Prompt 资产化</h2>
+              <p class="lesson-desc">从单一的魔法 Prompt 跃升到精细的上下文工程。掌握上下文管理的五个动作，解决幻觉与冗杂问题，并将 PPT 创作实战总结转化为 AI Skills 数字资产。</p>
+            </div>
+            <div class="btn-study">
+              <span>阅读课件</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 JumpX AI. 保留所有权利。</p>
+  </footer>
+</body>
+</html>
