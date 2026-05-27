@@ -82,3 +82,59 @@ image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-10.png
 ---
 
 <!-- Page 11 · Day 1 收束 -->
+
+---
+layout: image
+image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-11.png
+---
+
+<!-- Page 12 -->
+
+---
+layout: image
+image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-12.png
+---
+
+<!-- Page 13 -->
+
+---
+layout: image
+image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-13.png
+---
+
+<!-- Page 14 -->
+
+---
+layout: image
+image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-14.png
+---
+
+<!-- Page 15 -->
+
+---
+layout: image
+image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-15.png
+---
+
+<!-- Page 16 -->
+
+---
+layout: image
+image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-16.png
+---
+
+<!-- Page 17 -->
+
+---
+layout: image
+image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-17.png
+---
+
+<!-- Page 18 -->
+
+---
+layout: image
+image: https://r2.jumpxai.com/courses/ai-camp/week-03-agent/3-18.png
+---
+
+<!-- Page 19 -->
